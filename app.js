@@ -1,13 +1,4 @@
-/* ========================
-   PARKSYNC - Vanilla JavaScript
-   Multi-city, role-based, i18n
-   Dataset: bookable places (hotels, restaurants, activities, events)
-   across Dubai, Abu Dhabi (UAE) and New York, Washington D.C., California (USA)
-   ======================== */
 
-// ========================
-// Initialize App
-// ========================
 document.addEventListener('DOMContentLoaded', function () {
     initTheme();
     initLanguage();
@@ -81,9 +72,7 @@ function routePage() {
     }
 }
 
-// ========================
-// Utilities
-// ========================
+
 function getCurrentPage() {
     const path = window.location.pathname;
     let page = path.substring(path.lastIndexOf('/') + 1);
@@ -124,15 +113,9 @@ function priceUnitLabel(unit) {
     return map[unit] || ('/' + unit);
 }
 
-// ========================
-// Cities & Locations (Dubai, Abu Dhabi, NYC, Washington D.C., California)
-// Each location has: id, name, country, city, category, description, price, priceUnit,
-//                    rating, reviews, image, address, plus legacy fields used by the rest
-//                    of the app (type/size/hasEV/totalSlots/availableSlots) for compatibility.
-// ========================
+
 function L(over) {
-    // Helper to apply legacy defaults (type/size/hasEV/slots) so the app's existing
-    // booking/availability flow keeps working for any "place".
+   
     return Object.assign({
         type: 'indoor',
         size: 'standard',
@@ -451,9 +434,7 @@ function setSelectedCity(cityKey) {
     else localStorage.removeItem('parksync_selectedCity');
 }
 
-// ========================
-// Theme
-// ========================
+
 function initTheme() {
     const savedTheme = localStorage.getItem('parksync_theme') || 'dark';
     document.documentElement.setAttribute('data-theme', savedTheme);
@@ -477,9 +458,7 @@ function updateThemeIcon(theme) {
     });
 }
 
-// ========================
-// Language / i18n
-// ========================
+
 let currentLang = 'en';
 
 const translations = {
@@ -685,9 +664,6 @@ function autoTranslateNavLinks() {
     applyTranslations();
 }
 
-// ========================
-// Navbar extras (lang switcher)
-// ========================
 function injectNavbarExtras() {
     document.querySelectorAll('.navbar .d-flex.align-items-center.gap-3').forEach(container => {
         if (!container.querySelector('.lang-toggle')) {
@@ -706,9 +682,7 @@ function injectNavbarExtras() {
     autoTranslateNavLinks();
 }
 
-// ========================
-// Authentication (role-based, localStorage-backed)
-// ========================
+
 function initAuth() {
     seedAdminAccount();
     updateAuthUI();
@@ -832,9 +806,6 @@ function updateAuthUI() {
     }
 }
 
-// ========================
-// Navigation
-// ========================
 function initNavigation() {
     const currentPage = getCurrentPage();
     document.querySelectorAll('.nav-link').forEach(link => {
@@ -845,9 +816,7 @@ function initNavigation() {
     });
 }
 
-// ========================
-// Toasts
-// ========================
+
 function initToasts() {
     if (!document.getElementById('toastContainer')) {
         const container = document.createElement('div');
@@ -886,9 +855,7 @@ function removeToast(toastId) {
     }
 }
 
-// ========================
-// Bookings
-// ========================
+
 function getBookings() {
     return JSON.parse(localStorage.getItem('parksync_bookings') || '[]');
 }
@@ -988,9 +955,7 @@ function calculateExpiry(duration, unit, startDate) {
     return date.toISOString();
 }
 
-// ========================
-// Favorites
-// ========================
+
 function toggleFavorite(spaceId) {
     const user = getCurrentUser();
     if (!user) { showToast(t('error'), t('loginFirst'), 'error'); return false; }
@@ -1016,9 +981,7 @@ function isFavorite(spaceId) {
     return !!(user && user.favorites && user.favorites.includes(spaceId));
 }
 
-// ========================
-// Page Initializations
-// ========================
+
 function initHomePage() {
     const heroSearchForm = document.getElementById('heroSearchForm');
     if (heroSearchForm) {
@@ -1146,9 +1109,7 @@ function checkExpiringBookings(bookings) {
     });
 }
 
-// ========================
-// Search Page (city + locations + country/category filter)
-// ========================
+
 function initSearchPage() {
     renderCityPicker();
     const selected = getSelectedCity();
@@ -1352,9 +1313,7 @@ function renderParkingSpaces(spaces) {
     }).join('');
 }
 
-// ========================
-// Booking Page
-// ========================
+
 function initBookingPage() {
     const urlParams = new URLSearchParams(window.location.search);
     const locationId = urlParams.get('id');
@@ -1427,9 +1386,7 @@ function showQRModal(booking) {
     document.body.insertAdjacentHTML('beforeend', modalHTML);
 }
 
-// ========================
-// Reservations
-// ========================
+
 function initReservationsPage() {
     const user = getCurrentUser();
     const bookings = getBookings().filter(function (b) { return b.userId === user.id; });
@@ -1511,9 +1468,7 @@ function handleCancel(id) {
     }
 }
 
-// ========================
-// Owner Dashboard / Manage spaces (admin)
-// ========================
+
 function getAllLocationsFlat() {
     const data = getStoredCityData();
     const out = [];
@@ -1606,9 +1561,8 @@ function initAddSpacePage() {
     });
 }
 
-// ========================
-// Admin / Reports / Profile / Contact / FAQ
-// ========================
+
+
 function initAdminPage() {
     const users = getUsers();
     const spaces = getAllLocationsFlat();
@@ -1688,4 +1642,4 @@ function initContactPage() {
     });
 }
 
-function initFAQPage() { /* Bootstrap accordion handles itself */ }
+function initFAQPage() { }
