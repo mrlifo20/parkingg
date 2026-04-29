@@ -174,7 +174,7 @@ const CITIES = {
         address: 'Tahrir Square',
         rating: 4.2,
         reviews: 980,
-        image: 'https://source.unsplash.com/800x600/?underground,parking'
+        image: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAH1Gdii62d4KHf8dANlUBvcEUQkkp-iRZcfmN-X6_0YmXdKtEDFIFnX924P6d3xnh7oCT5Z0B18YXLw3lIm-j2qIn4B0IhmYCwAA3xpKqQXWXl2o5dR0fxf1JeaGEstFXakwXp_=s294-w294-h220-n-k-no'
       }),
 
       L({
@@ -190,8 +190,8 @@ const CITIES = {
         address: 'Talaat Harb',
         rating: 3.9,
         reviews: 540,
-        image: 'https://source.unsplash.com/800x600/?street,parking'
-      }),
+        image:'https://lh3.googleusercontent.com/gps-cs-s/APNQkAEZwslWuFvMk7VuhBGBW2r7f3yH3oksYjF9aiXzdX4NTLJxNzVrOwN4hbM7vePFmA8hSNtIyeWvB9jNztdFOusdyP0nLgl5ID2wgZCyN0iK_1EIgezGpweENFtlgYlYooMKVKdD=s680-w680-h510-rw'
+    }),
 
       L({
         id: 'cai-03',
@@ -206,7 +206,7 @@ const CITIES = {
         address: '6th October',
         rating: 4.6,
         reviews: 8420,
-        image: 'https://source.unsplash.com/800x600/?mall,parking'
+        image: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAFcxFAU3hf4E-7dbwiQVyCnZw0xH_32-o-72fdExRkOgJSJ4yTlimo13te5hIKuRpXYDimC9Jop1TeihjQ9TMSDmd2NXtB_kxwkwUmiKK2O6wG-1zu-wOAOItS3sm8-Qe2IlafzP_cMLWc=s680-w680-h510-rw'
       }),
 
       L({
@@ -222,7 +222,7 @@ const CITIES = {
         address: 'New Cairo',
         rating: 4.5,
         reviews: 6310,
-        image: 'https://source.unsplash.com/800x600/?parking,garage'
+        image: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAHAm3WqZnvyTTw5m-Rq9J1mDhMhO4Hokj_PdE0DmvigAiLCjCbPmbTcZoG1QaHqnO1UR8ybzKmiTrzthlqpLBejkgrnRlDai5rep9gB3epnf-wOUZ23ydnbWE8mUh1LUWMx9R_zEh9cIFnz=s680-w680-h510-rw'
       }),
 
       L({
@@ -238,13 +238,13 @@ const CITIES = {
         address: 'Heliopolis',
         rating: 4.1,
         reviews: 4120,
-        image: 'https://source.unsplash.com/800x600/?multi-level,parking'
+        image: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAEotxNQxgHhHhCIyaBPDfNtBFkKu4bnQu9z6DEAXeA-4oCvAXnN-udMCB3VV8XbXKsYPdQU3z-6_IkmOrkjb4ntptT3ZBg33ejS6fUa3hKmHtWAEIn_y_n4WWezKyeFkPBpXANF=s680-w680-h510-rw'
       }),
 
       L({
         id: 'cai-06',
-        name: 'Al Hussein Parking',
-        nameAr: 'انتظار الحسين',
+        name: 'Administrative Capital Garage',
+        nameAr: ' جراج العاصمه الاداريه  ',
         type: 'Street',
         price_per_hour: 25,
         currency: 'EGP',
@@ -254,7 +254,7 @@ const CITIES = {
         address: 'Al Hussein',
         rating: 3.4,
         reviews: 210,
-        image: 'https://source.unsplash.com/800x600/?car,parking'
+        image: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAH18koELzyTYj6sGLuuGx4RuFpBGv8P_jGc_oWKS-MrSCteAqi3mfYlstNKZ8ZGv9seikqyHXTATuYJsAJpSEJ0XNROAz807o31sUbCXhzkwzfCx0JLosAxSVq8xnRgudJylvbVFw=s680-w680-h510-rw'
       })
     ]
   },
@@ -278,7 +278,7 @@ const CITIES = {
         address: 'Downtown Dubai',
         rating: 4.7,
         reviews: 18500,
-        image: 'https://source.unsplash.com/800x600/?luxury,parking'
+        image: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAFFpOV0xC9IlFohCfe2jkiQ8chtqGGFzBOvd8EfsUvWsmlO9QHdNeJxWExFDyBKuDkcJ11KHRp9ociPqXD8nqOXUFxncavEqK82Xkj1nQYaVyfrpR9WxrQuihWf0SfYiU5YpffkhkdvHX7k=s680-w680-h510-rw'
       }),
 
       L({
@@ -294,7 +294,7 @@ const CITIES = {
         address: 'Sheikh Zayed Rd',
         rating: 4.6,
         reviews: 9200,
-        image: 'https://source.unsplash.com/800x600/?indoor,parking'
+        image: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAGeZrJrqsnE4DXWx69TlCAHElhvzyy5DK7O4si161fY3-hGaTygashsnazqfmr4E3_8VZJDO4BNHY_v4hIgAR3zm9YgdCghujUAYIp4RjxW6XJbAj4IAmJUS4LymobiHrcmQSks3tuWYjs=w243-h174-n-k-no-nu'
       }),
 
       L({
@@ -310,7 +310,7 @@ const CITIES = {
         address: 'Downtown',
         rating: 4.8,
         reviews: 4310,
-        image: 'https://source.unsplash.com/800x600/?premium,parking'
+        image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTANSqnVwUvkJg4N2kTRGgnVtzS5kibaT0tjA&s'
       }),
 
       L({
@@ -326,7 +326,7 @@ const CITIES = {
         address: 'Dubai Marina',
         rating: 4.5,
         reviews: 7240,
-        image: 'https://source.unsplash.com/800x600/?parking,city'
+        image: 'https://api.quicklease.ae/storage/blogs_images/mL5MYH5z8DjFRIcRI7lGwtUuKyrKqNGoV3tE3ixa.webp'
       })
     ]
   },
@@ -350,7 +350,7 @@ const CITIES = {
         address: 'Manhattan',
         rating: 4.3,
         reviews: 3120,
-        image: 'https://source.unsplash.com/800x600/?city,parking'
+        image: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAGZvUc1RgMogzA5gvrdv7cAZfxvEykwuzSGHaydyWK_Fz5nGeHQ0fnz3if-oXRKzuqiZDVMdpVY8ouE94yB8nvKIioIG2Em9zx7AXYkkLlhwUjinHI9zuiPq-_64x7JZHF_yXfvgw=s680-w680-h510-rw'
       }),
 
       L({
@@ -366,7 +366,7 @@ const CITIES = {
         address: 'Midtown',
         rating: 4.4,
         reviews: 1820,
-        image: 'https://source.unsplash.com/800x600/?garage,parking'
+        image: 'https://img.youm7.com/ArticleImgs/2023/4/3/126196-%D8%A7%D9%84%D8%AC%D8%B1%D8%A7%D8%AC-%D9%85%D9%86-%D8%A7%D9%84%D8%AF%D8%A7%D8%AE%D9%84.jpg'
       }),
 
       L({
@@ -382,7 +382,7 @@ const CITIES = {
         address: 'SoHo',
         rating: 4.2,
         reviews: 1400,
-        image: 'https://source.unsplash.com/800x600/?downtown,parking'
+        image: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAEx2nAPfLI5KGwnGH961zIph8GzGIygNMIGYn1Pvo7nMGSF-wIxkoanFtb-M7UXnj2EYG_4EcdM4iMXmfhUHkJkbeNiBZsUaVbX19o2Llr7sUB3AlWl30wJqDdGGdgKVof7n2w4acM9E64o=s680-w680-h510-rw'
       }),
 
       L({
@@ -398,7 +398,7 @@ const CITIES = {
         address: 'JFK Airport',
         rating: 4.2,
         reviews: 5640,
-        image: 'https://source.unsplash.com/800x600/?airport,parking'
+        image: 'https://lh3.googleusercontent.com/gps-cs-s/APNQkAEhLG_nSbov9rTKYrXMZWWn1ljvreMAGPsO0wDDm07vyE4cN7FugehAKFWVuA_-h_muJXuAlRyc42ZRPnlvHnmhh-bQpM4oIFS_q5bucqtZLJK8BZVhHEi0cMRs-8E_Mq0febkkIA=w408-h280-k-no'
       })
     ]
   }
