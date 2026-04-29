@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Places - PARKSYNC</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Header -->
+    <nav class="navbar navbar-expand-lg navbar-custom fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">PARKSYNC</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html" data-i18n="home">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="search.html" data-i18n="search">Search</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="dashboard.html" data-i18n="dashboard">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html#how" data-i18n="howItWorks">How It Works</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="contact.html" data-i18n="contact">Contact</a>
+                    </li>
+                </ul>
+                <div class="d-flex align-items-center gap-3">
+                    <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()">
+                        <i class="bi bi-sun-fill"></i>
+                    </button>
+                    <a href="profile.html" class="profile-icon" id="profileIcon" style="display: none;">U</a>
+                    <button class="btn btn-accent" id="loginBtn" data-i18n="login">Login</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container" style="padding-top: 100px;">
+        <div id="cityPicker"></div>
+        <div class="row">
+            <!-- Filters Sidebar -->
+            <div class="col-lg-3 mb-4">
+                <div class="filter-section">
+                    <h5 class="filter-title"><i class="bi bi-funnel"></i> <span data-i18n="filters">Filters</span></h5>
+
+                    <!-- Search -->
+                    <div class="mb-4">
+                        <label class="form-label-custom" data-i18n="search">Search</label>
+                        <input type="text" class="form-control form-control-custom" id="searchInput"
+                               placeholder="Search by country, city, or parking name"
+                               data-i18n-placeholder="searchPlaceholderParking">
+                    </div>
+
+                    <!-- Country Filter -->
+                    <div class="mb-4">
+                        <label class="form-label-custom" data-i18n="country">Country</label>
+                        <select class="form-select form-select-custom" id="countryFilter">
+                            <option value="all" data-i18n="allCountries">All Countries</option>
+                            <option value="Egypt" data-i18n="countryEgypt">Egypt</option>
+                            <option value="UAE" data-i18n="countryUAE">United Arab Emirates</option>
+                            <option value="USA" data-i18n="countryUSA">United States</option>
+                        </select>
+                    </div>
+
+                    <!-- Type Filter -->
+                    <div class="mb-4">
+                        <label class="form-label-custom" data-i18n="type">Type</label>
+                        <select class="form-select form-select-custom" id="typeFilter">
+                            <option value="all" data-i18n="allTypes">All Types</option>
+                            <option value="Street" data-i18n="typeStreet">Street</option>
+                            <option value="Garage" data-i18n="typeGarage">Garage</option>
+                            <option value="Mall" data-i18n="typeMall">Mall</option>
+                            <option value="Private" data-i18n="typePrivate">Private</option>
+                        </select>
+                    </div>
+
+                    <!-- Availability Filter -->
+                    <div class="mb-4">
+                        <label class="form-label-custom" data-i18n="availability">Availability</label>
+                        <select class="form-select form-select-custom" id="availabilityFilter">
+                            <option value="all" data-i18n="allAvailability">All</option>
+                            <option value="Available" data-i18n="availStatusAvailable">Available</option>
+                            <option value="Limited" data-i18n="availStatusLimited">Limited</option>
+                            <option value="Full" data-i18n="availStatusFull">Full</option>
+                        </select>
+                    </div>
+
+                    <button class="btn btn-accent w-100" onclick="filterSpaces()">
+                        <i class="bi bi-search"></i> <span data-i18n="applyFilters">Apply Filters</span>
+                    </button>
+                </div>
+
+                <!-- Map Placeholder -->
+                <div class="map-container mt-4">
+                    <style>
+                        .psmap-wrap{position:relative;width:100%;aspect-ratio:1/1;border-radius:14px;overflow:hidden;background:radial-gradient(circle at 30% 20%,#0d2640 0%,#070d1a 55%,#03060d 100%);box-shadow:inset 0 0 60px rgba(0,255,255,.08),0 0 24px rgba(0,255,255,.05);font-family:inherit}
+                        .psmap-wrap *{box-sizing:border-box}
+                        .psmap-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(0,255,255,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(0,255,255,.07) 1px,transparent 1px);background-size:32px 32px;animation:psmap-pan 18s linear infinite}
+                        .psmap-grid::after{content:"";position:absolute;inset:0;background:radial-gradient(circle at center,transparent 40%,rgba(0,0,0,.55) 100%)}
+                        @keyframes psmap-pan{from{background-position:0 0,0 0}to{background-position:32px 32px,32px 32px}}
+                        .psmap-roads{position:absolute;inset:0;pointer-events:none}
+                        .psmap-roads path{stroke:rgba(0,255,255,.18);stroke-width:6;fill:none;stroke-linecap:round}
+                        .psmap-roads .psmap-road-glow{stroke:rgba(0,255,255,.06);stroke-width:14}
+                        .psmap-scan{position:absolute;left:0;right:0;top:0;height:35%;background:linear-gradient(to bottom,rgba(0,255,255,.18),transparent);animation:psmap-scan 3.5s ease-in-out infinite;pointer-events:none;mix-blend-mode:screen}
+                        @keyframes psmap-scan{0%,100%{transform:translateY(-30%)}50%{transform:translateY(220%)}}
+                        .psmap-pin{position:absolute;width:22px;height:22px;border-radius:50%;transform:translate(-50%,-50%);cursor:pointer;display:flex;align-items:center;justify-content:center;color:#031018;font-size:11px;font-weight:700;transition:transform .25s ease,box-shadow .25s ease;z-index:2}
+                        .psmap-pin::before{content:"";position:absolute;inset:-10px;border-radius:50%;border:2px solid currentColor;opacity:.55;animation:psmap-ping 1.8s cubic-bezier(.2,.8,.4,1) infinite}
+                        .psmap-pin::after{content:"";position:absolute;inset:-4px;border-radius:50%;background:radial-gradient(circle,currentColor 0%,transparent 70%);opacity:.35;filter:blur(4px)}
+                        @keyframes psmap-ping{0%{transform:scale(.6);opacity:.7}80%,100%{transform:scale(1.8);opacity:0}}
+                        .psmap-pin.psmap-available{background:#22e6a4;color:#22e6a4;box-shadow:0 0 12px #22e6a4}
+                        .psmap-pin.psmap-limited{background:#ffc857;color:#ffc857;box-shadow:0 0 12px #ffc857}
+                        .psmap-pin.psmap-full{background:#ff4d6d;color:#ff4d6d;box-shadow:0 0 12px #ff4d6d;animation:psmap-pulse-full 1.6s ease-in-out infinite}
+                        @keyframes psmap-pulse-full{0%,100%{box-shadow:0 0 8px #ff4d6d}50%{box-shadow:0 0 22px #ff4d6d}}
+                        .psmap-pin .psmap-dot{width:8px;height:8px;background:#0a0f1a;border-radius:50%}
+                        .psmap-pin:hover{transform:translate(-50%,-50%) scale(1.35);z-index:6}
+                        .psmap-pin.psmap-active{transform:translate(-50%,-50%) scale(1.5);z-index:7}
+                        .psmap-tip{position:absolute;transform:translate(-50%,calc(-100% - 18px));background:rgba(7,15,28,.95);color:#e6f7ff;border:1px solid rgba(0,255,255,.35);box-shadow:0 8px 24px rgba(0,0,0,.5),0 0 14px rgba(0,255,255,.25);border-radius:10px;padding:8px 10px;font-size:11px;line-height:1.35;min-width:130px;max-width:170px;pointer-events:none;opacity:0;transition:opacity .18s ease;z-index:8;backdrop-filter:blur(6px)}
+                        .psmap-tip::after{content:"";position:absolute;left:50%;bottom:-6px;transform:translateX(-50%) rotate(45deg);width:10px;height:10px;background:rgba(7,15,28,.95);border-right:1px solid rgba(0,255,255,.35);border-bottom:1px solid rgba(0,255,255,.35)}
+                        .psmap-tip.psmap-show{opacity:1}
+                        .psmap-tip .psmap-tip-name{font-weight:700;color:#5cf7ff;margin-bottom:2px}
+                        .psmap-tip .psmap-tip-row{display:flex;justify-content:space-between;gap:8px;margin-top:2px}
+                        .psmap-tip .psmap-tip-status{display:inline-block;padding:1px 6px;border-radius:999px;font-size:10px;font-weight:700;color:#031018}
+                        .psmap-tip .psmap-tip-status.s-available{background:#22e6a4}
+                        .psmap-tip .psmap-tip-status.s-limited{background:#ffc857}
+                        .psmap-tip .psmap-tip-status.s-full{background:#ff4d6d}
+                        .psmap-legend{position:absolute;left:10px;bottom:10px;display:flex;flex-direction:column;gap:4px;background:rgba(7,15,28,.65);border:1px solid rgba(0,255,255,.18);border-radius:10px;padding:8px 10px;font-size:11px;color:#cfeff7;backdrop-filter:blur(6px);z-index:5}
+                        .psmap-legend-item{display:flex;align-items:center;gap:6px}
+                        .psmap-legend-dot{width:10px;height:10px;border-radius:50%;box-shadow:0 0 8px currentColor}
+                        .psmap-legend-dot.l-available{background:#22e6a4;color:#22e6a4}
+                        .psmap-legend-dot.l-limited{background:#ffc857;color:#ffc857}
+                        .psmap-legend-dot.l-full{background:#ff4d6d;color:#ff4d6d}
+                        .psmap-compass{position:absolute;right:10px;top:10px;width:36px;height:36px;border-radius:50%;border:1px solid rgba(0,255,255,.3);background:rgba(7,15,28,.6);display:flex;align-items:center;justify-content:center;color:#5cf7ff;font-size:12px;font-weight:700;letter-spacing:1px;backdrop-filter:blur(6px);z-index:5}
+                        .psmap-compass::before{content:"";position:absolute;top:3px;left:50%;transform:translateX(-50%);width:0;height:0;border-left:4px solid transparent;border-right:4px solid transparent;border-bottom:8px solid #ff4d6d}
+                        .psmap-status{position:absolute;right:10px;bottom:10px;font-size:10px;color:#5cf7ff;font-family:ui-monospace,monospace;letter-spacing:1px;background:rgba(7,15,28,.6);padding:4px 8px;border-radius:6px;border:1px solid rgba(0,255,255,.18);z-index:5}
+                        .psmap-status .psmap-blink{display:inline-block;width:6px;height:6px;border-radius:50%;background:#22e6a4;margin-right:6px;box-shadow:0 0 6px #22e6a4;animation:psmap-blink 1.2s ease-in-out infinite}
+                        @keyframes psmap-blink{0%,100%{opacity:1}50%{opacity:.25}}
+                    </style>
+                    <div class="psmap-wrap" id="psmap">
+                        <div class="psmap-grid"></div>
+                        <svg class="psmap-roads" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+                            <path class="psmap-road-glow" d="M0,30 C25,28 45,55 70,52 S100,48 100,48"/>
+                            <path d="M0,30 C25,28 45,55 70,52 S100,48 100,48"/>
+                            <path class="psmap-road-glow" d="M20,0 C22,30 55,45 50,75 S48,100 48,100"/>
+                            <path d="M20,0 C22,30 55,45 50,75 S48,100 48,100"/>
+                            <path class="psmap-road-glow" d="M0,80 C30,82 60,70 100,75"/>
+                            <path d="M0,80 C30,82 60,70 100,75"/>
+                        </svg>
+                        <div class="psmap-scan"></div>
+                        <div class="psmap-compass">N</div>
+                        <div class="psmap-legend" aria-label="Map legend">
+                            <div class="psmap-legend-item"><span class="psmap-legend-dot l-available"></span> <span data-i18n="availStatusAvailable">Available</span></div>
+                            <div class="psmap-legend-item"><span class="psmap-legend-dot l-limited"></span> <span data-i18n="availStatusLimited">Limited</span></div>
+                            <div class="psmap-legend-item"><span class="psmap-legend-dot l-full"></span> <span data-i18n="availStatusFull">Full</span></div>
+                        </div>
+                        <div class="psmap-status"><span class="psmap-blink"></span>LIVE • <span id="psmapClock">--:--</span></div>
+                        <div class="psmap-tip" id="psmapTip" role="tooltip"></div>
+                    </div>
+                    <script>
+                        (function(){
+                            var pins=[
+                                {x:18,y:22,name:'Lot A · Downtown',status:'available',spots:42,price:6},
+                                {x:34,y:38,name:'Lot B · Midtown',status:'limited',spots:7,price:8},
+                                {x:58,y:25,name:'Lot C · Marina',status:'available',spots:31,price:5},
+                                {x:72,y:55,name:'Lot D · Waterfront',status:'full',spots:0,price:9},
+                                {x:46,y:62,name:'Lot E · City Center',status:'available',spots:58,price:7},
+                                {x:25,y:72,name:'Lot F · Old Town',status:'limited',spots:4,price:6},
+                                {x:80,y:80,name:'Lot G · Airport Link',status:'available',spots:120,price:4},
+                                {x:62,y:82,name:'Lot H · Stadium',status:'full',spots:0,price:10}
+                            ];
+                            var host=document.getElementById('psmap');
+                            if(!host) return;
+                            var tip=document.getElementById('psmapTip');
+                            var labels={available:'Available',limited:'Limited',full:'Full'};
+                            pins.forEach(function(p,i){
+                                var el=document.createElement('div');
+                                el.className='psmap-pin psmap-'+p.status;
+                                el.style.left=p.x+'%';
+                                el.style.top=p.y+'%';
+                                el.style.animationDelay=(i*0.2)+'s';
+                                el.innerHTML='<span class="psmap-dot"></span>';
+                                el.setAttribute('tabindex','0');
+                                el.setAttribute('aria-label',p.name+', '+labels[p.status]+', '+p.spots+' spots');
+                                function showTip(){
+                                    tip.innerHTML='<div class="psmap-tip-name">'+p.name+'</div>'+
+                                        '<div class="psmap-tip-row"><span>Status</span><span class="psmap-tip-status s-'+p.status+'">'+labels[p.status]+'</span></div>'+
+                                        '<div class="psmap-tip-row"><span>Spots</span><strong>'+p.spots+'</strong></div>'+
+                                        '<div class="psmap-tip-row"><span>From</span><strong>$'+p.price+'/hr</strong></div>';
+                                    tip.style.left=p.x+'%';
+                                    tip.style.top=p.y+'%';
+                                    tip.classList.add('psmap-show');
+                                }
+                                function hideTip(){tip.classList.remove('psmap-show');}
+                                el.addEventListener('mouseenter',showTip);
+                                el.addEventListener('mouseleave',hideTip);
+                                el.addEventListener('focus',showTip);
+                                el.addEventListener('blur',hideTip);
+                                el.addEventListener('click',function(ev){
+                                    ev.stopPropagation();
+                                    host.querySelectorAll('.psmap-pin.psmap-active').forEach(function(n){n.classList.remove('psmap-active');});
+                                    el.classList.add('psmap-active');
+                                    showTip();
+                                });
+                                host.appendChild(el);
+                            });
+                            host.addEventListener('click',function(){
+                                host.querySelectorAll('.psmap-pin.psmap-active').forEach(function(n){n.classList.remove('psmap-active');});
+                                tip.classList.remove('psmap-show');
+                            });
+                            var clock=document.getElementById('psmapClock');
+                            function tick(){
+                                if(!clock) return;
+                                var d=new Date();
+                                var hh=String(d.getHours()).padStart(2,'0');
+                                var mm=String(d.getMinutes()).padStart(2,'0');
+                                clock.textContent=hh+':'+mm;
+                            }
+                            tick();setInterval(tick,30000);
+                        })();
+                    </script>
+                </div>
+            </div>
+
+            <!-- Results -->
+            <div class="col-lg-9">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h2 data-i18n="availableParking">Available Parking</h2>
+                    <small class="text-secondary" id="resultCount"></small>
+                </div>
+
+                <div class="row" id="parkingGrid">
+                    <!-- Populated by JavaScript -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <h3 class="navbar-brand mb-3">PARKSYNC</h3>
+                    <p class="text-secondary">Discover and book the best places across the world's top cities.</p>
+                </div>
+                <div class="col-lg-2 col-md-6 mb-4">
+                    <h5 class="footer-title">Quick Links</h5>
+                    <a href="index.html" class="footer-link">Home</a>
+                    <a href="search.html" class="footer-link">Search</a>
+                    <a href="index.html#how" class="footer-link">How It Works</a>
+                    <a href="contact.html" class="footer-link">Contact</a>
+                </div>
+                <div class="col-lg-2 col-md-6 mb-4">
+                    <h5 class="footer-title">Support</h5>
+                    <a href="faq.html" class="footer-link">Help Center</a>
+                    <a href="faq.html" class="footer-link">FAQ</a>
+                    <a href="terms.html" class="footer-link">Terms</a>
+                    <a href="privacy.html" class="footer-link">Privacy</a>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <h5 class="footer-title">Contact</h5>
+                    <div class="footer-contact">
+                        <i class="bi bi-geo-alt"></i>
+                        <span>123 Park Avenue, City Center</span>
+                    </div>
+                    <div class="footer-contact">
+                        <i class="bi bi-envelope"></i>
+                        <span>support@parksync.com</span>
+                    </div>
+                    <div class="footer-contact">
+                        <i class="bi bi-telephone"></i>
+                        <span>+1 (555) 123-4567</span>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 ParkSync. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
